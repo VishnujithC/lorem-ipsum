@@ -39,7 +39,7 @@
       }
     ?>
     <h2>Add Question</h2>
-    <form method="post">
+    <form action="add.php" method="post">
       <label for="question-input">Question:</label>
       <input type="text" id="question-input" name="question-input">
       <br><br>
@@ -54,7 +54,7 @@
       <br><br>
       <label for="answer-input">Correct answer (enter option number):</label>
       <input type="number" id="answer-input" name="answer-input">
-      <button type="submit">Add</button>
+      <input type="submit" value="submit" id="submit" name="submit">
     </form>
   </div>
 </body>

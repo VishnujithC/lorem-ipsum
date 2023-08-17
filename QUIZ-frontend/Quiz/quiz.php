@@ -1,10 +1,37 @@
 <?php
+include("../QUESTIOND/connection.php");
 
-if (!isset($_GET['qno'])) {
-    # code...
+if (!isset($_GET['quizID']) && !isset($_GET['qno'])) {
+    echo "Error: quizID parameter not set.";
+} else {
+    $quizID = $_GET['quizID'];
+    $qno = $_GET['qno'];
+
+    $query = "SELECT * FROM questions WHERE quizid = '$quizID'";
+    $result = mysqli_query($con, $query);
+
+    if (!$result) {
+        echo "Error fetching questions: " . mysqli_error($con);
+    } else {
+        $row = mysqli_fetch_assoc($result);
+
+        if (!$row) {
+            echo "No questions available for the given quizID.";
+        } else {
+            $questionNum = $qno;
+            $questionText = $row['qdis'];
+            $choice1 = $row['choice1'];
+            $choice2 = $row['choice2'];
+            $choice3 = $row['choice3'];
+            $choice4 = $row['choice4'];
+            $correctAnswer = $row['correctans'];
+        }
+
+        mysqli_free_result($result);
+    }
 }
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,79 +49,49 @@ if (!isset($_GET['qno'])) {
 <body>
 
     <main class="quiz_wrapper">
-        <nav>
-            <img src="/QUIZ/public/logo.jpg" alt="">
-        </nav>
-        <div class="timer_section">
-            <h3>Time left</h3>
-            <div class="time">
-                <p id="minutes">15</p>
-                <p>:</p>
-                <p id="seconds">00</p>
+        <?php if (!isset($questionText)): ?>
+            <p>
+                <?php echo "Error: No questions available for the given quizID."; ?>
+            </p>
+        <?php else: ?>
+            <nav>
+                <img src="/QUIZ/public/logo.jpg" alt="">
+            </nav>
+            <div class="timer_section">
+                <h3>Time left</h3>
+                <div class="time">
+                    <p>15</p>
+                    <p>:</p>
+                    <p>00</p>
+                </div>
             </div>
-        </div>
-        <div class="question_section">
-            <p class="question_num">Question 1</p>
-            <h3 class="question">What type of music do you listen to?</h3>
-            <div class="options">
-                <button class="option_btn">Option a</button>
-                <button class="option_btn">Option a</button>
-                <button class="option_btn">Option a</button>
-                <button class="option_btn">Option a</button>
+            <div class="question_section">
+                <p class="question_num">
+                    <?php echo "Question " . $questionNum; ?>
+                </p>
+                <h3 class="question">
+                    <?php echo $questionText; ?>
+                </h3>
+                <div class="options">
+                    <button class="option_btn">
+                        <?php echo $choice1; ?>
+                    </button>
+                    <button class="option_btn">
+                        <?php echo $choice2; ?>
+                    </button>
+                    <button class="option_btn">
+                        <?php echo $choice3; ?>
+                    </button>
+                    <button class="option_btn">
+                        <?php echo $choice4; ?>
+                    </button>
+                </div>
             </div>
-        </div>
-        <button class="next_question">
-            <a href="quiz.php?qno=3">
+            <button class="next_question">
                 <img src="/QUIZ/public/arrow.svg" alt="">
-            </a>
-        </button>
+            </button>
+        <?php endif; ?>
     </main>
-
-
-
-    <!-- <script>
-        document.addEventListener("DOMContentLoaded", function () {
-
-            // Set the target time for the countdown (15 minutes)
-            const targetTime = 15 * 60; // 15 minutes in seconds
-
-            // Get references to the timer display elements
-            const minutesDisplay = document.getElementById("minutes");
-            const secondsDisplay = document.getElementById("seconds");
-
-            let timerInterval;
-
-            // Update the timer every second
-            function updateTimer() {
-                const currentTime = Math.max(targetTime - Math.floor(Date.now() / 1000), 0);
-
-                console.log("Current Time:", currentTime);
-
-                const minutes = Math.floor(currentTime / 60);
-                const seconds = currentTime % 60;
-
-                console.log("Minutes:", minutes, "Seconds:", seconds);
-
-                // Update the timer display
-                minutesDisplay.textContent = String(minutes).padStart(2, "0");
-                secondsDisplay.textContent = String(seconds).padStart(2, "0");
-
-                if (currentTime === 0) {
-                    // Timer has reached 0, you can add actions here when the time is up
-                    clearInterval(timerInterval);
-                }
-            }
-
-            // Initial call to update timer
-            // updateTimer();
-
-            // Call updateTimer every second
-            timerInterval = setInterval(updateTimer, 1000);
-        });
-
-
-    </script> -->
-
 </body>
 
 </html>
