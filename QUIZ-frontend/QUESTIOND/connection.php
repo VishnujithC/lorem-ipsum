@@ -2,7 +2,7 @@
 
     $l="localhost";
     $u="root";
-    $p="password";
+    $p="Antony@123";
     $db="quiz";
     $con=mysqli_connect($l, $u, $p, $db);
 

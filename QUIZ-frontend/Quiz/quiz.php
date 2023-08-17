@@ -1,34 +1,50 @@
 <?php
 include("../QUESTIOND/connection.php");
 
-if (!isset($_GET['quizID']) && !isset($_GET['qno'])) {
-    echo "Error: quizID parameter not set.";
+if (!isset($_GET['quizID']) || !isset($_GET['qno'])) {
+    echo "Error: quizID or qno parameter not set.";
 } else {
     $quizID = $_GET['quizID'];
     $qno = $_GET['qno'];
 
-    $query = "SELECT * FROM questions WHERE quizid = '$quizID'";
-    $result = mysqli_query($con, $query);
-
-    if (!$result) {
-        echo "Error fetching questions: " . mysqli_error($con);
+    if ($qno > 15) {
+        echo "Over";
     } else {
-        $row = mysqli_fetch_assoc($result);
+        $query = "SELECT * FROM questions WHERE quizid = '$quizID' AND question_number = $qno";
+        $result = mysqli_query($con, $query);
 
-        if (!$row) {
-            echo "No questions available for the given quizID.";
+        if (!$result) {
+            echo "Error fetching questions: " . mysqli_error($con);
         } else {
-            $questionNum = $qno;
-            $questionText = $row['qdis'];
-            $choice1 = $row['choice1'];
-            $choice2 = $row['choice2'];
-            $choice3 = $row['choice3'];
-            $choice4 = $row['choice4'];
-            $correctAnswer = $row['correctans'];
-        }
+            $totalQs = mysqli_num_rows($result);
 
-        mysqli_free_result($result);
+            $randomQnNum = rand(1, $totalQs);
+
+            $questionsArray = array();
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                $questionsArray[] = $row;
+            }
+
+            if (isset($questionsArray[$randomQnNum - 1])) {
+                $randomQuestion = $questionsArray[$randomQnNum - 1];
+
+                $questionNum = $qno;
+                $questionText = $randomQuestion['qdis'];
+                $choice1 = $randomQuestion['choice1'];
+                $choice2 = $randomQuestion['choice2'];
+                $choice3 = $randomQuestion['choice3'];
+                $choice4 = $randomQuestion['choice4'];
+                $qsId = $randomQuestion['questionid'];
+                $correctAnswer = $randomQuestion['correctans'];
+            } else {
+                echo "Error: Invalid random question number.";
+            }
+
+            mysqli_free_result($result);
+        }
     }
+
 }
 ?>
 
@@ -73,25 +89,89 @@ if (!isset($_GET['quizID']) && !isset($_GET['qno'])) {
                     <?php echo $questionText; ?>
                 </h3>
                 <div class="options">
-                    <button class="option_btn">
+                    <button id="button_1" onclick="selectAns(1)" class="option_btn">
                         <?php echo $choice1; ?>
                     </button>
-                    <button class="option_btn">
+                    <button id="button_2" onclick="selectAns(2)" class="option_btn">
                         <?php echo $choice2; ?>
                     </button>
-                    <button class="option_btn">
+                    <button id="button_3" onclick="selectAns(3)" class="option_btn">
                         <?php echo $choice3; ?>
                     </button>
-                    <button class="option_btn">
+                    <button id="button_4" onclick="selectAns(4)" class="option_btn">
                         <?php echo $choice4; ?>
                     </button>
                 </div>
             </div>
-            <button class="next_question">
-                <img src="/QUIZ/public/arrow.svg" alt="">
+            <button class="next_question"
+                onclick="addToLocalStorage(selectedOption, <?php echo $correctAnswer ?>, <?php echo $qsId ?>, <?php echo $questionNum + 1 ?>, <?php echo $quizID ?>)">
+                <a href="quiz.php?quizID=<?php echo $quizID ?>&qno=<?php echo $qno + 1 ?>">
+                    <img src="/QUIZ/public/arrow.svg" alt="">
+                </a>
             </button>
+
         <?php endif; ?>
     </main>
+
+    <script>
+
+        let selectedOption = 0; // Initialize with a default value
+
+        const selectAns = (option) => {
+            selectedOption = option;
+
+            const selectAllButtons = document.querySelectorAll('#button_1,#button_2,#button_3,#button_4');
+            selectAllButtons.forEach(button => {
+                button.style.backgroundColor = "white";
+                button.style.color = "black";
+            });
+
+            const selectedButton = document.getElementById(`button_${option}`);
+            if (selectedButton) {
+                selectedButton.style.backgroundColor = "black"; // Change background color
+                selectedButton.style.color = "white";
+            }
+        };
+
+        const addToLocalStorage = (selectedOption, correctAns, qsId, qno, quizID) => {
+
+            const questionInfo = {
+                questionId: qsId,
+                selectedOption: selectedOption,
+                correctAnswer: correctAns,
+                isCorrect: selectedOption === correctAns
+            };
+
+            const storedData = localStorage.getItem('quizResults');
+            const existingData = storedData ? JSON.parse(storedData) : [];
+
+            // check already exists
+            const existingQuestionIndex = existingData.findIndex(item => item.questionId === qsId);
+
+            if (existingQuestionIndex === -1) {
+                // not found
+                existingData.push(questionInfo);
+            } else {
+                // if found
+                existingData[existingQuestionIndex] = questionInfo;
+            }
+
+            // store back
+            localStorage.setItem('quizResults', JSON.stringify(existingData));
+            // goToNextQuestion(qno, quizID);
+        };
+
+
+
+        const goToNextQuestion = (qno, quizID) => {
+            console.log(quizID);
+            if (qno <= 15) {
+                window.location.href = `quiz.php?quizID=${quizID}&qno=${qno + 1}`;
+            }
+        }
+
+    </script>
+
 </body>
 
 </html>
