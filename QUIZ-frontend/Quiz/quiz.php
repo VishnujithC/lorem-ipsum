@@ -8,7 +8,7 @@ if (!isset($_GET['quizID']) || !isset($_GET['qno'])) {
     $qno = $_GET['qno'];
 
     if ($qno > 15) {
-        echo "Over";
+        header("Location : /QUIZ/QUIZ-frontend/quiz-over/quiz-over.php");
     } else {
         $query = "SELECT * FROM questions WHERE quizid = '$quizID' AND question_number = $qno";
         $result = mysqli_query($con, $query);
@@ -76,11 +76,12 @@ if (!isset($_GET['quizID']) || !isset($_GET['qno'])) {
             <div class="timer_section">
                 <h3>Time left</h3>
                 <div class="time">
-                    <p>15</p>
+                    <p id="minutes">15</p>
                     <p>:</p>
-                    <p>00</p>
+                    <p id="seconds">00</p>
                 </div>
             </div>
+
             <div class="question_section">
                 <p class="question_num">
                     <?php echo "Question " . $questionNum; ?>
@@ -131,7 +132,7 @@ if (!isset($_GET['quizID']) || !isset($_GET['qno'])) {
                 selectedButton.style.backgroundColor = "black"; // Change background color
                 selectedButton.style.color = "white";
             }
-        };
+        }
 
         const addToLocalStorage = (selectedOption, correctAns, qsId, qno, quizID) => {
 
@@ -169,6 +170,32 @@ if (!isset($_GET['quizID']) || !isset($_GET['qno'])) {
                 window.location.href = `quiz.php?quizID=${quizID}&qno=${qno + 1}`;
             }
         }
+
+
+        const updateTimer = () => {
+            const minutesElement = document.getElementById("minutes");
+            const secondsElement = document.getElementById("seconds");
+
+            let minutes = parseInt(minutesElement.textContent);
+            let seconds = parseInt(secondsElement.textContent);
+
+            if (minutes === 0 && seconds === 0) {
+                clearInterval(timerInterval);
+                alert("Time's up!");
+            } else {
+                if (seconds === 0) {
+                    minutes--;
+                    seconds = 59;
+                } else {
+                    seconds--;
+                }
+
+                minutesElement.textContent = minutes < 10 ? `0${minutes}` : minutes;
+                secondsElement.textContent = seconds < 10 ? `0${seconds}` : seconds;
+            }
+        };
+
+        const timerInterval = setInterval(updateTimer, 1000);
 
     </script>
 
