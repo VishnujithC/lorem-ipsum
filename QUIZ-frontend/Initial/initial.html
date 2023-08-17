@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/QUIZ/Styles/container.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Choose your role:</h1>
+        <div class="buttons">
+            <button class="quiz-master" onclick="handleQuizMasterClick()">
+                I'm a Quiz Master
+            </button>
+            <button class="quizzee" onclick="handleQuizzeeClick()">
+                I'm a Quizzee
+            </button>
+        </div><br>
+        <button onclick="goBack()">go back</button>
+    </div>
+    
+    <script>
+        function handleQuizMasterClick() {
+            window.location.href = '/QUIZ/QUIZ-frontend/Master/Master.html';
+        }
+
+        function handleQuizzeeClick() {
+            window.location.href = '/QUIZ/QUIZ-frontend/Student/Student.html';
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

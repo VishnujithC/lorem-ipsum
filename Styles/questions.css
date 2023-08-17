@@ -1,0 +1,50 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+  
+h1, h2 {
+    font-weight: bold;
+    font-family: Poppins;
+    margin: 20px 0;
+}
+
+ul {
+    list-style: none;
+    font-family: Poppins;
+    padding-left: 0;
+}
+  
+li {
+    margin: 10px 0;
+    font-family: Poppins;
+}
+  
+label {
+    display: block;
+    font-family: Poppins;
+    font-weight: bold;
+    margin: 10px 0;
+}
+  
+input[type="text"],
+input[type="number"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 5px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+  
+button {
+    background-color: #0077FF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+  
