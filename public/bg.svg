@@ -1,0 +1,18 @@
+<svg width="1512" height="982" viewBox="0 0 1512 982" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_546_22)">
+<rect width="1512" height="982" fill="white"/>
+<g filter="url(#filter0_f_546_22)">
+<ellipse cx="755.5" cy="981.5" rx="499.5" ry="485.5" fill="#4CA4DF" fill-opacity="0.4"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_f_546_22" x="-253" y="-13" width="2017" height="1989" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="254.5" result="effect1_foregroundBlur_546_22"/>
+</filter>
+<clipPath id="clip0_546_22">
+<rect width="1512" height="982" fill="white"/>
+</clipPath>
+</defs>
+</svg>
