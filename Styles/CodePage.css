@@ -31,7 +31,7 @@ body{
     width: 100%;
     height: 100vh;
 }
-.card{
+form{
     background-color:whitesmoke;
     padding: 7%;
     border:white 10px inset;
@@ -42,7 +42,7 @@ body{
     justify-content: center;
     align-items: center;
 }
-.card input{
+form input{
     width:  85%;
     height: 10%;
     border-radius: 100px;

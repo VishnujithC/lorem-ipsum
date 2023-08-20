@@ -35,19 +35,21 @@
                 <span>Quizzer</span> 
                 <span>!!!</span>
             </div>
-            <div class='txt'>
-                <p>Nickname</p>
-                <input type="text" placeholder="Enter your nickname">
-                <p>Email</p>
-                <input type="text" placeholder="Enter your email address">
-            </div>
-            <div class="Reem">
-                <div class="reem">
-                    <input type="checkbox">
-                    <p>Remember me</p>
+            <form action="loginstud.php" method="post">
+                <div class='txt'>
+                    <p>Nickname</p>
+                    <input type="text" name="nick" id="nick" placeholder="Enter your nickname">
+                    <p>Email</p>
+                    <input type="text" name="email" placeholder="Enter your email address">
                 </div>
-                   <button class="button"><span>Enter</span></button>
-            </div>
+                <div class="Reem">
+                    <div class="reem">
+                        <input type="checkbox">
+                        <p>Remember me</p>
+                    </div>
+                    <input type="submit" name="submit" value="Go" id="submit">
+                </div>
+            </form>
 
         </div>
 
