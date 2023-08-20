@@ -12,6 +12,11 @@
 
     <h1 style="font-family:poppins" id="score_text"></h1>
 
+    <form id="quizForm" action="updatemark.php" method="post">
+        <input type="hidden" name="score" value="">
+    </form>
+
+
     <script>
         let count = 0;
         const getResults = JSON.parse(localStorage.getItem('quizResults')) || [];
@@ -21,23 +26,9 @@
             }
         })
         document.getElementById("score_text").innerHTML += `Score ${count}/15`;
-        fetch("updatemark.php",{
-            method:"POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(count)
-        }).then(response => response.json())
-            .then(responseData => {
-            // Handle the response from the PHP page if needed
-                console.log('Response from PHP:', responseData);
+        document.querySelector('input[name="score"]').value = count;
+        document.getElementById('quizForm').submit();
 
-            // Clear local storage after processing
-                localStorage.removeItem('quizResults');
-        })
-        .catch(error => {
-                console.error('Error:', error);
-        });
     </script>
 
 

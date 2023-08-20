@@ -1,0 +1,49 @@
+.lor{
+    display: flex;
+    padding: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+#dd{
+    width: 200px;
+
+}
+
+.red{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:-100px;
+    left: 0px;
+    z-index: -10;
+}
+.red img{
+    width: 100%;
+}
+
+body{
+    height: 100vh;
+}
+.input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50vh;
+}
+#txt{
+    font-size: 60px;
+    font-family: Poppins;
+    font-weight: 500;
+}
+p{
+    font-size: 30px;
+    font-family: Poppins;
+    font-weight: 200;
+}
+.out{
+    display: flex;
+    flex-direction: row;
+    /* height: 100vh; */
+}
