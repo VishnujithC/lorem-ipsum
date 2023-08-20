@@ -7,8 +7,7 @@
         $query="insert into attempt values('$n','$id',0);";
         $res=mysqli_query($con,$query);
         if($res){
-            $_SESSION["quizid"]=$id;
+            header("location:../Quiz/quiz.php?quizID=$id&qno=1");
         }
-        header("location:../Quiz/quiz.php");
     }
 ?>

@@ -8,9 +8,9 @@ if (!isset($_GET['quizID']) || !isset($_GET['qno'])) {
     $qno = $_GET['qno'];
 
     if ($qno > 15) {
-        header("Location : /QUIZ/QUIZ-frontend/quiz-over/quiz-over.php");
+        header("location: ../quiz-over/quiz-over.php");
     } else {
-        $query = "SELECT * FROM questions WHERE quizid = '$quizID' AND question_number = $qno";
+        $query = "SELECT * FROM questions WHERE quizid = '$quizID' AND question_number = '$qno'";
         $result = mysqli_query($con, $query);
 
         if (!$result) {

@@ -21,7 +21,25 @@
             }
         })
         document.getElementById("score_text").innerHTML += `Score ${count}/15`;
+        fetch("updatemark.php",{
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(count)
+        }).then(response => response.json())
+            .then(responseData => {
+            // Handle the response from the PHP page if needed
+                console.log('Response from PHP:', responseData);
+
+            // Clear local storage after processing
+                localStorage.removeItem('quizResults');
+        })
+        .catch(error => {
+                console.error('Error:', error);
+        });
     </script>
+
 
 </body>
 
