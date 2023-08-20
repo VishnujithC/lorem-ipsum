@@ -1,34 +1,46 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" href="/QUIZ/Styles/container.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Choose your role:</h1>
-        <div class="buttons">
-            <button class="quiz-master" onclick="handleQuizMasterClick()">
-                I'm a Quiz Master
-            </button>
-            <button class="quizzee" onclick="handleQuizzeeClick()">
-                I'm a Quizzee
-            </button>
-        </div><br>
-        <button onclick="goBack()">go back</button>
-    </div>
-    
-    <script>
-        function handleQuizMasterClick() {
-            window.location.href = '/QUIZ/QUIZ-frontend/Master/Master.html';
-        }
+    <head>
+      <meta charset="UTF-8" >
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="/QUIZ/Styles/initial.css">
+      <link rel="icon" type="image/x-icon" href="C:\Users\91730\Desktop\QUIZZ\public\Chakra.svg">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+      <title>Lorem Ipsum</title>
+    </head>
+    <body>
+        <div class="header">
+            <img id="img1" src="/QUIZ/public/Chakra.svg" >
+            <p id="lip"> <span id="span">Lorem</span>ipsum</p>
+        </div>
+        <div class="des">
+            <p id="wtxt2">Just some more stuff brfore we go.</p>
+            <p id="wtxt1">What kind of user are you? </p>
+            <div class="buttons">
+                <button class="quizzee" onclick="handleQuizzeeClick()">
+                    <img src="/QUIZ/public/Component 4.svg">
+                </button>
+                <button class="quiz-master" onclick="handleQuizMasterClick()">
+                    <img src="/QUIZ/public/Component 3.svg">
+                </button>
+            </div><br>
 
-        function handleQuizzeeClick() {
-            window.location.href = '/QUIZ/QUIZ-frontend/Student/Student.html';
-        }
 
-        function goBack() {
-            window.history.back();
-        }
-    </script>
-</body>
+            <script>
+                function handleQuizMasterClick() {
+                    window.location.href = '/QUIZ/QUIZ-frontend/Master/Master.html';
+                }
+        
+                function handleQuizzeeClick() {
+                    window.location.href = '/QUIZ/QUIZ-frontend/Student/Student.html';
+                }
+        
+                function goBack() {
+                    window.history.back();
+                }
+            </script>
+        </div>
+    </body>
 </html>

@@ -3,12 +3,13 @@
     include "../QUESTIOND/connection.php";
 
     if(isset($_POST['submit'])){
-        $e=$_POST['nick'];
-        $query="insert into student values(0,'$e');";
+        $n=$_POST['nick'];
+        $e=$_POST['email'];
+        $query="insert into student values(0,'$n','$e');";
         $res=mysqli_query($con,$query);
         if($res){
             $_SESSION["username"]=$e;
-            $query="select studentid from student where username='$e';";
+            $query="select studentid from student where username='$n' and email='$e';";
             $res=mysqli_query($con,$query);
             if($res){
                 $id=mysqli_fetch_assoc($res);
@@ -16,6 +17,6 @@
             }
         }
 
-        //header("location:../CodePage/CodePage.html");
+        header("location:../CodePage/CodePage.html");
     }
 ?>

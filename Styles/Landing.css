@@ -94,6 +94,7 @@
     line-height: 28px;
     /* identical to box height */
     text-align: center;
+    text-decoration: none ;
     width: 200px;
     height: 50px;
     transition: all 0.5s;
@@ -105,8 +106,7 @@
     display: inline-block;
     position: relative;
     transition: 0.5s;
-  }
-  
+  }  
   .button span:after {
     content: '\00bb';
     position: absolute;
@@ -123,4 +123,7 @@
   .button:hover span:after {
     opacity: 1;
     right: 0;
+  }
+  .b1{
+    text-decoration: none;
   }
